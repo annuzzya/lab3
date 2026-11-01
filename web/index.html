@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cparse · AST viewer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">cparse <span>AST viewer</span></div>
+  <div class="file" id="file-name">no file loaded</div>
+  <div class="actions">
+    <button id="expand">Expand all</button>
+    <button id="collapse">Collapse</button>
+    <button id="fit">Fit</button>
+    <label class="toggle"><input type="checkbox" id="show-types" checked> types</label>
+    <label class="button">Open JSON<input type="file" id="open" accept=".json,application/json" hidden></label>
+  </div>
+</header>
+
+<main>
+  <section class="pane source-pane">
+    <h2>Source</h2>
+    <pre id="source" class="code"></pre>
+  </section>
+
+  <section class="pane tree-pane" id="tree-pane">
+    <svg id="tree"></svg>
+    <div class="legend">
+      <span class="decl">declaration</span>
+      <span class="stmt">statement</span>
+      <span class="op">operator</span>
+      <span class="ref">reference / call</span>
+      <span class="lit">literal</span>
+    </div>
+    <div id="empty" class="empty" hidden>
+      <p>No syntax tree loaded.</p>
+      <p>Run <code>./cparse --web web examples/sort.c</code> and reload the page,<br>or open a file produced by <code>./cparse --json ast.json file.c</code>.</p>
+    </div>
+  </section>
+
+  <section class="pane side-pane">
+    <nav class="tabs">
+      <button data-tab="node" class="active">Node</button>
+      <button data-tab="js">JavaScript</button>
+      <button data-tab="output">Run</button>
+    </nav>
+    <div class="tab" id="tab-node">
+      <div id="node-info" class="node-info">Click a node to inspect it.</div>
+    </div>
+    <div class="tab" id="tab-js" hidden>
+      <pre id="js" class="code"></pre>
+    </div>
+    <div class="tab" id="tab-output" hidden>
+      <button id="run" class="primary">Run generated JavaScript</button>
+      <pre id="output" class="output"></pre>
+    </div>
+  </section>
+</main>
+
+<script src="vendor/d3.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
